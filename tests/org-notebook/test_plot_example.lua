@@ -25,6 +25,9 @@ describe("plot example", function()
 		vim.uv.sleep(1000)
 		mini_test.expect.reference_screenshot(child.get_screenshot())
 		-- Can't use the hash because of floating point precision being weird
-		mini_test.expect.equality(string.sub(vim.fn.readblob("tests/org-notebook/plot_example.svg"), 1, #"<svg"), "<svg")
+		mini_test.expect.equality(
+			string.sub(vim.fn.readblob("tests/org-notebook/plot_example.svg"), 1, #"<svg"),
+			"<svg"
+		)
 	end)
 end)
