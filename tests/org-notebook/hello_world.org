@@ -1,0 +1,13 @@
+#+NAME: hello_world
+#+BEGIN_SRC ts :results value replace
+{
+	[Deno.jupyter.$display]: function() {
+		return {
+		  "text/plain": "Hello world!",
+		}
+	}
+}
+#+END_SRC
+
+#+RESULTS: hello_world
+: Hello world!

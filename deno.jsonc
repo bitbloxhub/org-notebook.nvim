@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "@observablehq/plot": "npm:@observablehq/plot@^0.6.17",
+    "happy-dom": "npm:happy-dom@^20.0.11",
+    "vega-datasets": "npm:vega-datasets@^3.2.1"
+	"register-window": "./register_window.ts",
+  }
+}

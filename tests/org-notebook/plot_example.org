@@ -1,0 +1,22 @@
+#+NAME: plot_example
+#+BEGIN_SRC ts :results value graphics replace
+import { document } from "register-window"
+import * as Plot from "@observablehq/plot"
+import d from "vega-datasets"
+
+const p = await d["penguins.json"]()
+
+Plot.plot({
+	marks: [
+		Plot.dot(p, {
+			x: "Beak Depth (mm)",
+			y: "Beak Length (mm)",
+			fill: "Island",
+		}),
+	],
+	document,
+})
+#+END_SRC
+
+#+RESULTS: plot_example
+[[file:plot_example.svg]]
