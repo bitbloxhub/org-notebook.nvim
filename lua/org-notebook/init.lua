@@ -227,6 +227,7 @@ local function init_kernel_callback(bufnr, kernel)
 						)
 					end
 				elseif results_format.collection == "output" then
+					-- TODO: add support for output
 				else
 					utils.error(
 						"Found an invalid collection type, this should never happen! %s",
