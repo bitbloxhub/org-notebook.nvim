@@ -172,13 +172,13 @@ local function init_kernel_callback(bufnr, kernel)
 		local buffer_name = vim.api.nvim_buf_get_name(bufnr)
 		local buffer_result_dir = ""
 		if buffer_name == "" then
-			local kernel_conn_info_file_path = vim.fn.tempname()
-			vim.fn.mkdir(kernel_conn_info_file_path, "p")
-			buffer_result_dir = kernel_conn_info_file_path
+			local output_temp_dir = vim.fn.tempname()
+			vim.fn.mkdir(output_temp_dir, "p")
+			buffer_result_dir = output_temp_dir
 			vim.api.nvim_create_autocmd({ "BufUnload" }, {
 				buffer = bufnr,
 				callback = function()
-					vim.fn.system({ "rm", "-Rf", kernel_conn_info_file_path })
+					vim.fn.system({ "rm", "-Rf", output_temp_dir })
 				end,
 			})
 		else
