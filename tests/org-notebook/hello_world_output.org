@@ -1,0 +1,10 @@
+#+NAME: hello_world
+#+BEGIN_SRC ts :results output replace
+console.log("Hello world!")
+await new Promise(r => setTimeout(r, 2000))
+console.log("Hello world, after sleeping!")
+#+END_SRC
+
+#+RESULTS: hello_world
+: Hello world!
+: Hello world, after sleeping!

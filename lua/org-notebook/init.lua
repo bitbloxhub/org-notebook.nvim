@@ -109,7 +109,7 @@ local function init_kernel_callback(bufnr, kernel)
 	---@param results_format OrgResultsHeader
 	---@param block_name string
 	---@param in_output string
-	---@param mime_type string
+	---@param mime_type string | nil
 	---@param file_desc string | nil
 	local function write_result(results_format, block_name, in_output, mime_type, file_desc)
 		local output = {}
@@ -227,7 +227,24 @@ local function init_kernel_callback(bufnr, kernel)
 						)
 					end
 				elseif results_format.collection == "output" then
-					-- TODO: add support for output
+					if message.header.msg_type == "stream" then
+						vim.b[bufnr].kernel_connections =
+							vim.tbl_deep_extend("force", vim.b[bufnr].kernel_connections, {
+								[kernel.kernel_name] = {
+									["message_" .. message.parent_header.msg_id] = {
+										out_stream_content = vim.b[bufnr].kernel_connections[kernel.kernel_name]["message_" .. message.parent_header.msg_id].out_stream_content
+											.. message.content.text,
+									},
+								},
+							})
+						write_result(
+							results_format,
+							parent_message_state.block_name,
+							vim.b[bufnr].kernel_connections[kernel.kernel_name]["message_" .. message.parent_header.msg_id].out_stream_content,
+							nil,
+							nil
+						)
+					end
 				else
 					utils.error(
 						"Found an invalid collection type, this should never happen! %s",
@@ -409,6 +426,8 @@ local commands = {
 						["message_" .. msg_id] = {
 							block_name = block_name,
 							extra_params = orgmode_config:parse_header_args(extra_params),
+							-- Used for "output" cells
+							out_stream_content = "",
 						},
 					},
 				})
