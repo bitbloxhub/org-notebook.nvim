@@ -1,3 +1,5 @@
+#+ORG_NOTEBOOK_KERNEL: deno
+
 #+NAME: hello_world
 #+BEGIN_SRC ts :results output replace
 console.log("Hello world!")

@@ -19,7 +19,7 @@ describe("hello_world_value.org", function()
 			false,
 			{}
 		)
-		child.cmd("OrgNotebook init_kernel kernel_name=deno")
+		child.type_keys("3j")
 		vim.uv.sleep(2000)
 		child.cmd("OrgNotebook run_cell")
 		vim.uv.sleep(1000)
@@ -46,7 +46,7 @@ describe("hello_world_output.org", function()
 			false,
 			{}
 		)
-		child.cmd("OrgNotebook init_kernel kernel_name=deno")
+		child.type_keys("3j")
 		vim.uv.sleep(2000)
 		child.cmd("OrgNotebook run_cell")
 		vim.uv.sleep(3000)

@@ -478,6 +478,31 @@ M.org_init = function(bufnr)
 		nargs = "*",
 		complete = function() end,
 	})
+
+	-- Automatically start any kernels the file directives want
+	pcall(vim.treesitter.start, bufnr, "org")
+	vim.fn.timer_start(200, function()
+		local parser = vim.treesitter.get_parser(bufnr, "org")
+		assert(parser ~= nil)
+		local tree_root = parser:trees()[1]:root()
+		local notebook_directive_query = vim.treesitter.query.get("org", "notebook_directive")
+		assert(notebook_directive_query ~= nil)
+		for _, captures in notebook_directive_query:iter_matches(tree_root, bufnr) do
+			local directive_type = vim.treesitter.get_node_text(
+				captures[utils.find_capture_index(notebook_directive_query, "directive_type")][1],
+				bufnr
+			)
+			local directive_value = vim.treesitter.get_node_text(
+				captures[utils.find_capture_index(notebook_directive_query, "directive_value")][1],
+				bufnr
+			)
+			if string.lower(directive_type) == "org_notebook_kernel" then
+				commands.init_kernel(bufnr, {
+					kernel_name = directive_value,
+				})
+			end
+		end
+	end)
 end
 
 return M
