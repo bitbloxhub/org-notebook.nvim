@@ -1,6 +1,6 @@
 local mini_test = require("mini.test")
 
-describe("plot example", function()
+describe("plot_example.org", function()
 	local child = mini_test.new_child_neovim()
 
 	before_each(function()
@@ -19,7 +19,7 @@ describe("plot example", function()
 			false,
 			{}
 		)
-		child.cmd("OrgNotebook init_kernel kernel_name=deno")
+		child.type_keys("3jzt")
 		vim.uv.sleep(2000)
 		child.cmd("OrgNotebook run_cell")
 		vim.uv.sleep(1000)

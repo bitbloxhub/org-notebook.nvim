@@ -1,3 +1,5 @@
+#+ORG_NOTEBOOK_KERNEL: deno
+
 #+NAME: plot_example
 #+BEGIN_SRC ts :results value graphics replace
 import { document } from "register-window"
